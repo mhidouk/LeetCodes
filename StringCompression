@@ -1,0 +1,45 @@
+https://leetcode.com/problems/string-compression/description/?envType=study-plan-v2&envId=leetcode-75
+
+Problem Summary: Compress an array of characters (chars) by replacing consecutive repeating characters 
+with the count of repetition from character. 
+
+Brute force approach:
+go through each element in the chars array
+for each group of consecutive characters 
+if group number is 1, append only character 
+if group number is >1, append the character followed by count 
+Update the chars array with new size and content
+
+Code in Py:
+class Solution(object):
+    def compress(self, chars):
+        """
+        :type chars: List[str]
+        :rtype: int
+        """
+        write_ptr = 0  # Pointer to write the compressed result
+        n = len(chars)
+        i = 0  # Pointer to read the original array
+
+        while i < n:
+            current_char = chars[i]
+            count = 1  # Count of consecutive repeating characters
+
+            # Count consecutive repeating characters
+            while i + 1 < n and chars[i + 1] == current_char:
+                i += 1
+                count += 1
+
+            # Write the character to the write_ptr position
+            chars[write_ptr] = current_char
+            write_ptr += 1
+
+            # Write the count if it's greater than 1
+            if count > 1:
+                for digit in str(count):  # Handle counts >= 10
+                    chars[write_ptr] = digit
+                    write_ptr += 1
+
+            i += 1  # Move to the next character
+
+        return write_ptr  # Return the new length of the compressed array
