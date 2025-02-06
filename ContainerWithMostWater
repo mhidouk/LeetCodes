@@ -1,0 +1,31 @@
+https://leetcode.com/problems/container-with-most-water/?envType=study-plan-v2&envId=leetcode-75
+
+Problem summary: The goal is to find two lines that would form a container with the X axis where the container would contain the most water. 
+Given an array of integers representing heights of vertical lines.
+
+Brute force approach: 
+Use two pointers one in the most left position and another is most right position
+that way every pair of lines in the array will be considered 
+keep track of maximum area found 
+return maximum area 
+code in py: 
+
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        res = 0 #output of largest area holding water
+        L, R = 0, len(height)-1  #Assigning positions to left and right pointer 
+
+        while L < R: # while left pointer is shorter than right 
+            area = (R - L) * min(height[L], height[R]) #calculating area 
+            res = max(res, area)  #part to update result 
+
+            if height[L] < height[R]:
+                L += 1
+            else:
+                R -= 1
+           
+        return res
