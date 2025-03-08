@@ -1,0 +1,33 @@
+https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/1566821893/
+
+Problem Summary: Find the length of the longest substring character in a given string S that does not contain any repeating
+characters. A substring is a continuous sequence of characters within a string 
+
+Brute-Force Approach:
+1. Iterate through all possible substrings of S 
+2. For each substring, check for any repeating characters
+3. if the substring has no repeated characters check its length
+4. Keep track of maximum length of all valid substrings 
+5. Return the maximum length found. 
+
+Code in Py: 
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        char_map = {}  # empty hashmap
+        left = 0       # left pointer for sliding window
+        maxlen = 0     #Variable to track length of substring
+        for right in range(len(s)):
+            if s[right] in char_map and char_map[s[right]] >= left: #if element is already in hashmap and is within or ahead ahead of left pointer 
+                left = max(left, char_map[s[right]] + 1)   #slide the left element ahead 
+
+            char_map[s[right]] = right #update last seen index of current character
+            maxlen = max(maxlen, right - left + 1) # calculate length of current substring without repeating characters 
+
+        return maxlen
+
+
+       
