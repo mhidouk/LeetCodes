@@ -1,0 +1,35 @@
+https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/?envType=study-plan-v2&envId=leetcode-75
+
+Problem Summary: Given a binarry array nums, you should delete one element from it.
+Return the size of the longest non-empty subarray
+containing only 1's in the resulting array
+
+Approach:
+1.Initialize necessary variables to zero 
+2.Iterate through the array using the right pointer
+3.Shrink the window if unvalid
+4.Update maximum length
+
+Time complexity:O(n) time as each element is processed at most twice
+Space complexity: O(1) no arrays or hashmaps, uses only extra space variables
+           
+
+
+Cclass Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+
+        left = 0    #left pointer
+        zeroCount = 0 # Count of 0's
+        maxCount = 0 # Max count of consecutive 1's 
+
+        for right in range(len(nums)): 
+            if nums[right] == 0:  #if right pointer is 0 increase zeroCount
+               zeroCount += 1
+
+            while zeroCount > 1: #when zerocount is more than one and we find a zero shrink the window from the left
+              if nums[left] == 0: 
+                   zeroCount -= 1
+              left += 1 
+            maxCount = max(maxCount, right - left) #update maxcount
+
+        return maxCount 
