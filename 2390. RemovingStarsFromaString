@@ -1,0 +1,22 @@
+https://leetcode.com/problems/removing-stars-from-a-string/?envType=study-plan-v2&envId=leetcode-75
+
+Problem Summary: Find the length of the longest substring character in a given string S that does not contain any repeating
+characters. A substring is a continuous sequence of characters within a string 
+
+Brute-Force Approach:
+1. Iterate through String S 
+2. If Character is star and stack not empty pop the last element in stack
+3. else add the element to the stack  
+4. Return the stack 
+
+Code in Py:
+class Solution:
+    def removeStars(self, s: str) -> str:
+     stack = []   #initialization of empty stack to keep track of characters 
+     for char in s: #loop through the string
+        if char == '*':   #if character is star and stack not empty pop element
+            if stack:  
+                stack.pop() 
+        else: stack.append(char) #Otherwise add character to the stack
+
+     return ''.join(stack) 
